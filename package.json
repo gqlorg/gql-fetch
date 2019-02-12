@@ -1,0 +1,47 @@
+{
+  "name": "gql-fetch",
+  "description": "",
+  "version": "0.0.1",
+  "author": "Panates",
+  "contributors": [
+    "Eray Hanoglu <e.hanoglu@panates.com>",
+    "Arhun Hınçalan <a.hinclan@panates.com>"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gqlorg/gql-fetch.git"
+  },
+  "keywords": [
+    "javascript",
+    "graphql",
+    "fetch",
+    "client"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.13.0",
+    "eslint-config-google": "^0.12.0",
+    "mocha": "^5.2.0",
+    "nyc": "^13.2.0"
+  },
+  "peerDependencies": {},
+  "engines": {
+    "node": ">= 6.0"
+  },
+  "files": [
+    "LICENSE",
+    "README.md",
+    "lib/"
+  ],
+  "nyc": {
+    "temp-dir": "./coverage/.nyc_output"
+  },
+  "scripts": {
+    "test": "mocha --require ./test/support/env --reporter spec --bail --check-leaks test/",
+    "cover": "nyc --reporter html --reporter text npm run test",
+    "travis-test": "mocha --require ./test/support/env-travis --require ./test/support/env --reporter spec --check-leaks test/",
+    "travis-cover": "nyc --reporter lcovonly npm run travis-test"
+  }
+}

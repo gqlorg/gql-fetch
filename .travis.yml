@@ -1,0 +1,22 @@
+language: node_js
+node_js:
+  - "6"
+  - "7"
+  - "8"
+  - "10"
+  - "11"
+sudo: false
+cache:
+  directories:
+    - node_modules
+services:
+  - postgresql
+before_install:
+  - "test ! -d node_modules || npm prune"
+  - "test ! -d node_modules || npm rebuild"
+before_script:
+  - psql -c 'create database travis_ci_test;' -U postgres
+script:
+  - "npm run-script travis-cover"
+after_script:
+  - "npm install coveralls && cat ./coverage/lcov.info | coveralls"
