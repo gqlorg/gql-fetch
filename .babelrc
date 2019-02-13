@@ -3,17 +3,21 @@
     [
       "@babel/preset-env",
       {
-        "targets": {
-          "node": "6.1",
-          "chrome": "67",
-          "firefox": "60"
-        }
+        "targets": "> 0.5%, not dead, node 6"
       }
     ],
     "@babel/typescript"
   ],
   "plugins": [
     "@babel/proposal-class-properties",
-    "@babel/proposal-object-rest-spread"
+    "@babel/proposal-object-rest-spread",
+    [
+      "@babel/plugin-transform-modules-commonjs",
+      {
+        "noInterop": true,
+        "strict": true,
+        "loose": true
+      }
+    ]
   ]
 }
