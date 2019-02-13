@@ -65,9 +65,9 @@ describe('GQLClient', () => {
 
     it('Should fetch set option timeout property', () => {
         const client = new GQLClient('http://localhost:' + port + '/graphql');
-        return client.fetch(`{                                   
-                        timeoutServer                    
-                    }`, null, {timeout: 50}).then((res) => {
+        return client.fetch(`query ($interval: Int!){                                   
+                        timeoutServer(interval: $interval)                    
+                    }`, {interval: 250}, {timeout: 50}).then((res) => {
             assert.strictEqual(res.status, 200);
             assert.strictEqual(typeof res.json, 'object');
         }).catch((err) => {
@@ -77,15 +77,22 @@ describe('GQLClient', () => {
 
     it('Should fetch request abort function', () => {
         const client = new GQLClient('http://localhost:' + port + '/graphql');
-        const request = client.fetch(`{                                   
-                        serverName                  
-                    }`);
-        return request.then((res) => {
+        const request = client.fetch(`query ($interval: Int!){                                   
+                        timeoutServer(interval: $interval)                    
+                    }`, {interval: 10000});
+
+        const p = request.then((res) => {
             assert.strictEqual(res.status, 200);
             assert.strictEqual(typeof res.json, 'object');
         }).catch((err) => {
             assert.strictEqual(err.type, 'request-timeout');
         });
+
+        setTimeout(() => {
+            request.abort();
+        }, 10);
+
+        return p;
 
     });
 

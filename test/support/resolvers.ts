@@ -1,7 +1,11 @@
 import {database} from "./data";
 
-async function delay(ms: number) {
-    return new Promise(resolve => setTimeout(resolve, ms));
+function delay(ms: number) {
+    return new Promise(resolve => {
+        setTimeout(() => {
+            resolve();
+        }, ms).unref();
+    });
 }
 
 export const resolvers = {
@@ -17,8 +21,8 @@ export const resolvers = {
         return database.users.items;
     },
 
-    timeoutServer: async () => {
-        await delay(250);
+    timeoutServer: async (args: any) => {
+        await delay(args.interval);
         return "timeout";
     },
 

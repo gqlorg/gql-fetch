@@ -16,7 +16,7 @@ export const schema = buildSchema(`
   type Query {    
     user(id: Int!): User
     users: [User]  
-    timeoutServer: String 
+    timeoutServer(interval: Int!): String 
     serverName: String
   }
   
