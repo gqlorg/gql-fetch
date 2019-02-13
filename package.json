@@ -1,14 +1,13 @@
 {
   "name": "gql-fetch",
   "description": "",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "author": "Panates",
   "contributors": [
-    "Eray Hanoglu <e.hanoglu@panates.com>",
-    "Arhun Hınçalan <a.hinclan@panates.com>"
+    "Eray Hanoglu <e.hanoglu@panates.com>  (http://www.npmjs.com/~erayhanoglu)",
+    "Arhun Hınçalan <a.hincalan@panates.com> (http://www.npmjs.com/~ahincalan)"
   ],
-  "browser": "browser.js",
-  "main": "fetch-npm-node.js",
+  "main": "/lib/index.js",
   "license": "MIT",
   "repository": {
     "type": "git",
