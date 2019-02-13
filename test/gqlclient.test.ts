@@ -45,7 +45,7 @@ describe('GQLClient', () => {
                         }                      
                     }`).then((res) => {
             assert.strictEqual(res.status, 200);
-            assert.strictEqual(typeof res.data, 'object');
+            assert.strictEqual(typeof res.json, 'object');
         });
     });
 
@@ -59,7 +59,7 @@ describe('GQLClient', () => {
                         }                      
                     }`, {id: 1}).then((res) => {
             assert.strictEqual(res.status, 200);
-            assert.strictEqual(typeof res.data, 'object');
+            assert.strictEqual(typeof res.json, 'object');
         });
     });
 
@@ -69,7 +69,7 @@ describe('GQLClient', () => {
                         timeoutServer                    
                     }`, null, {timeout: 50}).then((res) => {
             assert.strictEqual(res.status, 200);
-            assert.strictEqual(typeof res.data, 'object');
+            assert.strictEqual(typeof res.json, 'object');
         }).catch((err) => {
             assert.strictEqual(err.type, 'request-timeout');
         });
@@ -82,7 +82,7 @@ describe('GQLClient', () => {
                     }`);
         return request.then((res) => {
             assert.strictEqual(res.status, 200);
-            assert.strictEqual(typeof res.data, 'object');
+            assert.strictEqual(typeof res.json, 'object');
         }).catch((err) => {
             assert.strictEqual(err.type, 'request-timeout');
         });

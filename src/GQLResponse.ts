@@ -1,6 +1,6 @@
 export default class GQLResponse {
 
-    public readonly data: object;
+    public readonly json: object;
     public readonly status: number;
     public readonly statusText: string;
     public readonly ok: boolean;
@@ -8,7 +8,7 @@ export default class GQLResponse {
     public readonly headers: Headers;
 
     constructor(response: Response, data: object) {
-        this.data = data;
+        this.json = data;
         this.headers = response.headers;
         this.ok = response.ok;
         this.status = response.status;
