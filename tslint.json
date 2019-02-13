@@ -18,7 +18,8 @@
     "ordered-imports": false,
     "curly": false,
     "member-ordering": false,
-    "member-access": false
+    "member-access": false,
+    "max-line-length": false
   },
   "rulesDirectory": []
 }

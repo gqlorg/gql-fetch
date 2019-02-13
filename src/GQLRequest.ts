@@ -1,5 +1,6 @@
 import {EventEmitter} from 'events';
 import {IPromiseFinally, IPromiseRejected, IPromiseResolved} from "./types";
+import GQLResponse from "./GQLResponse";
 
 export default class GQLRequest extends EventEmitter {
 
@@ -29,10 +30,10 @@ export default class GQLRequest extends EventEmitter {
         this._abortController.abort();
     }
 
-    public then(onfulfilled?: IPromiseResolved<Response>, onrejected?: IPromiseRejected): Promise<Response | never> {
-        if (onrejected)
-            return this.response.then(onfulfilled, onrejected);
-        return this.response.then(onfulfilled);
+    public then(onfulfilled?: IPromiseResolved<GQLResponse>, onrejected?: IPromiseRejected): Promise<GQLResponse | never> {
+        return this.response.then(resp =>
+                resp.json().then(data => new GQLResponse(resp, data)),
+            onrejected).then(onfulfilled);
     }
 
     public catch(onrejected?: IPromiseRejected): Promise<Response | never> {

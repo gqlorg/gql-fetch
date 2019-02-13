@@ -21,7 +21,8 @@
   ],
   "dependencies": {
     "isomorphic-fetch": "^2.2.1",
-    "abortcontroller-polyfill": "^1.2.3"
+    "abortcontroller-polyfill": "^1.2.3",
+    "form-data": "^2.3.3"
   },
   "devDependencies": {
     "@babel/cli": "^7.2.3",
