@@ -1,13 +1,11 @@
 import {EventEmitter} from 'events';
-
-type IPromiseResolved<T> = ((value: T) => T | PromiseLike<T>) | undefined | null;
-type IPromiseRejected = ((reason: any) => never | PromiseLike<never>) | undefined | null;
-type IPromiseFinally = (() => void) | undefined | null;
+import {IPromiseFinally, IPromiseRejected, IPromiseResolved} from "./types";
 
 export default class GQLRequest extends EventEmitter {
 
     public static readonly EVENT_ABORT = 'abort';
     public static readonly EVENT_COMPLETE = 'complete';
+
     private _response: Promise<Response>;
 
     constructor(response: Promise<Response>,

@@ -14,3 +14,11 @@ export interface IFetchOptions {
     size?: number;
     agent?: HttpAgent | HttpsAgent;
 }
+
+export interface IClientOptions {
+    headers?: object;
+}
+
+export type IPromiseResolved<T> = ((value: T) => never | any | PromiseLike<any>) | undefined | null;
+export type IPromiseRejected = ((reason: any) => never | PromiseLike<never>) | undefined | null;
+export type IPromiseFinally = (() => void) | undefined | null;

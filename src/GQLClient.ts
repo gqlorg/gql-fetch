@@ -1,15 +1,16 @@
-import {Maybe, IFetchOptions} from './types';
+import {Maybe, IFetchOptions, IClientOptions} from './types';
 import fetch from 'isomorphic-fetch';
 import GQLRequest from './GQLRequest';
+import 'abortcontroller-polyfill';
 
 export default class GQLClient {
 
     private _url: RequestInfo;
     private _headers: Maybe<object>;
 
-    constructor(url: RequestInfo, headers: object) {
+    constructor(url: RequestInfo, options: IClientOptions = {}) {
         this._url = url;
-        this._headers = headers;
+        this._headers = options.headers;
     }
 
     set headers(value: Maybe<object>) {
