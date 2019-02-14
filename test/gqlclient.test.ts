@@ -1,6 +1,9 @@
+import './support/env';
 import assert from "assert";
 import getFetch, {GQLClient} from "../src";
 import {GqlApplication} from "./support/app";
+const {rejects} = require('rejected-or-not');
+assert.rejects = assert.rejects || rejects;
 
 describe('GQLClient', () => {
 

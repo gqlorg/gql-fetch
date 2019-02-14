@@ -9,8 +9,6 @@ sudo: false
 cache:
   directories:
     - node_modules
-services:
-  - postgresql
 before_install:
   - "test ! -d node_modules || npm prune"
   - "test ! -d node_modules || npm rebuild"
