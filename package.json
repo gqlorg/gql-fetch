@@ -57,13 +57,20 @@
     "lib/"
   ],
   "nyc": {
-    "temp-dir": "./coverage/.nyc_output"
+    "temp-dir": "./coverage/.nyc_output",
+    "extension": [
+      ".ts",
+      ".tsx"
+    ],
+    "include": [ "src/**/*.ts", "src/**/*.js" ],
+    "exclude": [
+      "**/*.d.ts"
+    ]
   },
   "scripts": {
-    "test": "mocha --require ./test/support/env --reporter spec --bail --check-leaks test/",
-    "cover": "nyc --reporter html --reporter text npm run test",
-    "travis-test": "mocha --require ./test/support/env-travis --require ./test/support/env --reporter spec --check-leaks test/",
-    "travis-cover": "nyc --reporter lcovonly npm run travis-test",
+    "test": "mocha -r ./test/support/env -r ts-node/register --reporter spec --bail --check-leaks ./test/*.ts",
+    "cover": "nyc --reporter html --reporter text -r lcov npm run test",
+    "travis-cover": "nyc --reporter lcovonly -r lcov npm run test",
     "type-check": "tsc --noEmit",
     "type-check:watch": "npm run type-check -- --watch",
     "build": "npm run build:types && npm run build:js",

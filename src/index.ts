@@ -13,4 +13,5 @@ if (!global.fetch) {
 
 import {getFetch, GQLClient} from './fetch';
 
-export {getFetch, GQLClient};
+export default getFetch;
+export {GQLClient};

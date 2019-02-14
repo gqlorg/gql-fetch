@@ -1,5 +1,5 @@
 import assert from "assert";
-import {GQLClient} from "../src";
+import getFetch, {GQLClient} from "../src";
 import {GqlApplication} from "./support/app";
 
 describe('GQLClient', () => {
@@ -33,6 +33,14 @@ describe('GQLClient', () => {
         client.headers = newHeaders;
         assert.strictEqual(client.url, newUrl);
         assert.deepStrictEqual(client.headers, newHeaders);
+    });
+
+    it("Should check if query argument given for fetch()", () => {
+        const client = new GQLClient('http://localhost:' + port + '/graphql');
+        assert.throws(() => {
+            // @ts-ignore
+            client.fetch(null, null);
+        });
     });
 
     it('Should fetch simple query without variables', () => {
@@ -103,6 +111,23 @@ describe('GQLClient', () => {
                     }`);
         request.on('complete', () => {
             done();
+        });
+    });
+
+    it('Should create fetcher method', () => {
+        const gqlFetch = getFetch('http://localhost:' + port + '/graphql');
+        const request = gqlFetch(`{                                   
+                        user(id:1) {
+                            id 
+                            name
+                            email                                                                          
+                        }                      
+                    }`);
+        assert(request.response instanceof Promise);
+        assert.strictEqual(request.aborted, false);
+        return request.then((res) => {
+            assert.strictEqual(res.status, 200);
+            assert.strictEqual(typeof res.json, 'object');
         });
     });
 

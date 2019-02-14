@@ -30,9 +30,8 @@ export default class GQLClient {
 
     public fetch(query: string, variables?: Maybe<object>, options: IFetchOptions = {}): GQLRequest {
 
-        if (!query) {
+        if (!query)
             throw new Error('You must provide query string');
-        }
 
         const headers = {
             'Content-Type': 'application/json',

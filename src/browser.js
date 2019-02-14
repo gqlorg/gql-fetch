@@ -1,2 +1,4 @@
 require('whatwg-fetch');
-module.exports = require('./fetch');
+const {getFetch, GQLClient} = require('./fetch');
+module.exports = getFetch;
+module.exports.GQLClient = GQLClient;
