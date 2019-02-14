@@ -1,12 +1,16 @@
-import GQLClient from './GQLClient';
-import GQLRequest from './GQLRequest';
-import {Maybe, IFetchOptions} from './types';
-
-export default function getFetch(url: RequestInfo, options?: object) {
-    const client = new GQLClient(url, options);
-    return (query: string, variables?: Maybe<object>, fetchOptions: IFetchOptions = {}): GQLRequest => {
-        return client.fetch(query, variables, fetchOptions);
-    };
+import fetch from 'node-fetch';
+// @ts-ignore
+if (!global.fetch) {
+    // @ts-ignore
+    global.fetch = fetch;
+    // @ts-ignore
+    global.Response = fetch.Response;
+    // @ts-ignore
+    global.Headers = fetch.Headers;
+    // @ts-ignore
+    global.Request = fetch.Request;
 }
 
-export {GQLClient};
+import {getFetch, GQLClient} from './fetch';
+
+export {getFetch, GQLClient};

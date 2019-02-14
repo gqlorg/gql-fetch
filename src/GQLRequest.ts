@@ -7,7 +7,7 @@ export default class GQLRequest extends EventEmitter {
     public static readonly EVENT_ABORT = 'abort';
     public static readonly EVENT_COMPLETE = 'complete';
 
-    private _response: Promise<Response>;
+    private readonly _response: Promise<Response>;
 
     constructor(response: Promise<Response>,
                 private _abortController: AbortController) {
@@ -30,22 +30,31 @@ export default class GQLRequest extends EventEmitter {
         this._abortController.abort();
     }
 
-    public then(onfulfilled?: IPromiseResolved<GQLResponse>, onrejected?: IPromiseRejected): Promise<GQLResponse | never> {
-        return this.response.then(resp =>
-                resp.json().then(data => new GQLResponse(resp, data)),
-            onrejected).then(onfulfilled);
+    public on(event: 'abort' | 'complete', listener: (...args: any[]) => void): this {
+        return super.on(event, listener);
     }
 
+    public then(onfulfilled?: IPromiseResolved<GQLResponse>, onrejected?: IPromiseRejected): Promise<GQLResponse | never> {
+        return this.response
+            .catch(e => {
+                if (e.type === 'aborted')
+                    this.emit('abort');
+                throw e;
+            })
+            .then(resp =>
+                    resp.json().then(data => new GQLResponse(resp, data)),
+                onrejected)
+            .then(onfulfilled);
+    }
+
+    /* istanbul ignore next: No need to test Promise features */
     public catch(onrejected?: IPromiseRejected): Promise<Response | never> {
         return this.response.catch(onrejected);
     }
 
+    /* istanbul ignore next: No need to test Promise features */
     public finally(onfinally?: IPromiseFinally): Promise<Response | never> {
         return this.response.finally(onfinally);
-    }
-
-    public on(event: 'abort' | 'complete', listener: (...args: any[]) => void): this {
-        return super.on(event, listener);
     }
 
 }

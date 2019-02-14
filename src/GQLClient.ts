@@ -1,5 +1,4 @@
 import {Maybe, IFetchOptions, IClientOptions} from './types';
-import fetch from 'isomorphic-fetch';
 import GQLRequest from './GQLRequest';
 import 'abortcontroller-polyfill';
 
