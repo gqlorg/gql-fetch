@@ -19,6 +19,6 @@ export interface IClientOptions {
     headers?: object;
 }
 
-export type IPromiseResolved<T> = ((value: T) => never | any | PromiseLike<any>) | undefined | null;
+export type IPromiseResolved<T> = ((value: T) =>  void | undefined | any | PromiseLike<any>) | undefined | null;
 export type IPromiseRejected = ((reason: any) => never | PromiseLike<never>) | undefined | null;
 export type IPromiseFinally = (() => void) | undefined | null;
