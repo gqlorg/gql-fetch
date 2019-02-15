@@ -1,11 +1,11 @@
 {
   "name": "gql-fetch",
-  "description": "",
-  "version": "0.1.2",
+  "description": "The GraphQL client powered by fetch. Supports multiform and upload files",
+  "version": "0.1.6",
   "author": "Panates",
   "contributors": [
-    "Eray Hanoglu <e.hanoglu@panates.com>  (http://www.npmjs.com/~erayhanoglu)",
-    "Arhun Hınçalan <a.hincalan@panates.com> (http://www.npmjs.com/~ahincalan)"
+    "Eray Hanoglu <e.hanoglu@panates.com>",
+    "Arhun Hınçalan <ahincalan@hotmail.com>"
   ],
   "browser": "./lib/browser.js",
   "main": "./lib/index.js",
@@ -22,6 +22,7 @@
   ],
   "dependencies": {
     "abortcontroller-polyfill": "^1.2.3",
+    "form-data": "^2.3.3",
     "node-fetch": "^2.3.0",
     "whatwg-fetch": ">=0.10.0"
   },
@@ -35,7 +36,6 @@
     "@babel/preset-typescript": "^7.1.0",
     "@types/express": "^4.16.1",
     "@types/express-graphql": "^0.6.2",
-    "@types/form-data": "^2.2.1",
     "@types/graphql": "^14.0.5",
     "@types/mocha": "^5.2.5",
     "@types/node-fetch": "^2.1.6",
