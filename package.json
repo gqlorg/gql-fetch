@@ -5,7 +5,7 @@
   "author": "Panates",
   "contributors": [
     "Eray Hanoglu <e.hanoglu@panates.com>  (http://www.npmjs.com/~erayhanoglu)",
-    "Arhun Hınçalan <a.hincalan@panates.com> (http://www.npmjs.com/~ahincalan)"
+    "Arhun Hınçalan <ahincalan@hotmail.com> (http://www.npmjs.com/~ahincalan)"
   ],
   "browser": "./lib/browser.js",
   "main": "./lib/index.js",
