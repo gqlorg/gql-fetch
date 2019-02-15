@@ -1,29 +1,32 @@
 import fetch from 'node-fetch';
 
+// @ts-ignore
+const root = (typeof self === 'object' && self.window) || global;
+
 // fetch polyfill
 // @ts-ignore
-if (!global.fetch) {
+if (!root.fetch) {
     // @ts-ignore
-    global.fetch = fetch;
+    root.fetch = fetch;
 }
 
 // Headers polyfill
 // @ts-ignore
-if (!global.Headers) {
+if (!root.Headers) {
     // @ts-ignore
-    global.Headers = fetch.Headers;
+    root.Headers = fetch.Headers;
 }
 
 // Request polyfill
 // @ts-ignore
-if (!global.Request) {
+if (!root.Request) {
     // @ts-ignore
-    global.Request = fetch.Request;
+    root.Request = fetch.Request;
 }
 
 // Response polyfill
 // @ts-ignore
-if (!global.Response) {
+if (!root.Response) {
     // @ts-ignore
-    global.Response = fetch.Response;
+    root.Response = fetch.Response;
 }
