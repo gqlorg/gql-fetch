@@ -1,5 +1,6 @@
 import fetch from 'node-fetch';
 
+/* istanbul ignore next */
 // @ts-ignore
 const root = (typeof self === 'object' && self.window) || global;
 

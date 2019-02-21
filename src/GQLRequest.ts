@@ -1,6 +1,7 @@
 import {EventEmitter} from 'events';
 import {IPromiseFinally, IPromiseRejected, IPromiseResolved} from "./types";
 import GQLResponse from "./GQLResponse";
+import createError from "http-errors";
 
 export default class GQLRequest extends EventEmitter {
 
@@ -37,12 +38,18 @@ export default class GQLRequest extends EventEmitter {
     public then(onfulfilled?: IPromiseResolved<GQLResponse>, onrejected?: IPromiseRejected): Promise<GQLResponse | never> {
         return this.response
             .catch(e => {
-                if (e.type === 'aborted')
+                if (String(e).match(/aborted/i))
                     this.emit('abort');
                 throw e;
             })
-            .then(resp =>
-                    resp.json().then(data => new GQLResponse(resp, data)),
+            .then(resp => resp.json()
+                    .then(data => new GQLResponse(resp, data))
+                    .catch(/*istanbul ignore next*/() =>
+                        resp.text().then((s) => {
+                            throw createError(resp.status, s || resp.statusText);
+                        })
+                    )
+                ,
                 onrejected)
             .then(onfulfilled);
     }

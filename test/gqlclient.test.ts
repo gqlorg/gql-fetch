@@ -1,7 +1,9 @@
 import './support/env';
 import assert from "assert";
+import fs from "fs";
 import getFetch, {GQLClient} from "../src";
 import {GqlApplication} from "./support/app";
+
 const {rejects} = require('rejected-or-not');
 assert.rejects = assert.rejects || rejects;
 
@@ -12,14 +14,14 @@ describe('GQLClient', () => {
 
     before(() => {
         app = new GqlApplication();
-        app.start(port);
+        return app.start(port);
     });
 
     after(() => {
-        app.stop();
+        return app.stop();
     });
 
-    it("Should created GQLClient", () => {
+    it("Should create GQLClient", () => {
         const url = 'http://localhost:' + port + '/graphql';
         const headers = {'Content-Type': 'application/xml'};
         const client = new GQLClient(url, {headers});
@@ -58,7 +60,7 @@ describe('GQLClient', () => {
         assert(request.response instanceof Promise);
         assert.strictEqual(request.aborted, false);
         return request.then((res) => {
-            assert.strictEqual(res.status, 200);
+            assert.strictEqual(res.status, 200, res.statusText);
             assert.strictEqual(typeof res.json, 'object');
         });
     });
@@ -72,7 +74,7 @@ describe('GQLClient', () => {
                             email                                                                          
                         }                      
                     }`, {id: 1}).then((res) => {
-            assert.strictEqual(res.status, 200);
+            assert.strictEqual(res.status, 200, res.statusText);
             assert.strictEqual(typeof res.json, 'object');
         });
     });
@@ -99,7 +101,7 @@ describe('GQLClient', () => {
         return assert.rejects(() => {
             setTimeout(() => request.abort(), 10);
             return request;
-        }, /aborted/).then(() => {
+        }, /aborted/i).then(() => {
             assert.strictEqual(aborted, true);
             assert.strictEqual(request.aborted, true);
         });
@@ -129,8 +131,47 @@ describe('GQLClient', () => {
         assert(request.response instanceof Promise);
         assert.strictEqual(request.aborted, false);
         return request.then((res) => {
-            assert.strictEqual(res.status, 200);
+            assert.strictEqual(res.status, 200, res.statusText);
             assert.strictEqual(typeof res.json, 'object');
+        });
+    });
+
+    it('Should upload file', () => {
+        const client = new GQLClient('http://localhost:' + port + '/graphql');
+        return client.fetch(`mutation ($userId: Int!, $file: File!) {
+              uploadFile(userId: $userId, file: $file)           
+            }`, {
+            userId: 12345,
+            file: fs.createReadStream(__dirname + '/support/file1.txt')
+        }).then(res => {
+            const json = res.json;
+            assert(json);
+            assert(!json.errors, json.errors && json.errors[0].message);
+            assert.strictEqual(res.status, 200, res.statusText);
+            assert(json.data);
+            assert.strictEqual(json.data.uploadFile, 'This is the 1.st test file\n');
+        });
+    });
+
+    it('Should upload multiple files as array', () => {
+        const client = new GQLClient('http://localhost:' + port + '/graphql');
+        return client.fetch(`mutation ($userId: Int!, $files: [File!]!) {
+              uploadFiles(userId: $userId, files: $files)           
+            }`, {
+            userId: 12345,
+            files: [
+                fs.createReadStream(__dirname + '/support/file1.txt'),
+                fs.createReadStream(__dirname + '/support/file2.txt')
+            ]
+        }).then(res => {
+            const json = res.json;
+            assert(json);
+            assert(!json.errors, json.errors && json.errors[0].message);
+            assert.strictEqual(res.status, 200, res.statusText);
+            assert(json.data);
+            assert.deepStrictEqual(json.data.uploadFiles,
+                ['This is the 1.st test file\n', 'This is the 2.th test file\n']
+            );
         });
     });
 

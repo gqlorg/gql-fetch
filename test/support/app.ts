@@ -1,40 +1,38 @@
 import express from "express";
 import graphqlHTTP from "express-graphql";
-import {schema} from "./schema";
-import {resolvers} from "./resolvers";
+import {gqlMultipartExpress} from "gql-multipart";
+import {schema, resolvers} from "./schema";
 
 export class GqlApplication {
 
-    private express: express.Application;
+    private app: express.Application;
     private server: any;
     private schema = schema;
 
     constructor() {
 
-        this.express = express();
-        this.express.use('/graphql', graphqlHTTP((req, res) => {
-            res.set('Access-Control-Allow-Origin', '*');
-            if (req.headers.authorization) {
-                const header = req.headers.authorization;
-                res.setHeader('authorization', header);
-            }
-            return {
-                schema: this.schema,
-                rootValue: resolvers,
-                graphiql: true,
-                context: {
-                    request: req,
-                    response: res
-                }
-            };
+        this.app = express();
+        this.app.use('/graphql', gqlMultipartExpress());
+        this.app.use('/graphql', graphqlHTTP({
+            schema: this.schema,
+            rootValue: resolvers
         }));
     }
 
     start(port?: number) {
-        this.server = this.express.listen(port || 4000);
+        return new Promise(((resolve, reject) => {
+            this.server = this.app.listen(port || 4000, (err?: Error) => {
+                if (err)
+                    return reject(err);
+                resolve();
+            });
+        }));
     }
 
     stop() {
-        this.server.close();
+        return new Promise((resolve => {
+            this.server.on('close', resolve);
+            this.server.close();
+        }));
     }
 }
