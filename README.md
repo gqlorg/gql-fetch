@@ -35,11 +35,11 @@ $ npm install gql-fetch
 
 gql-fetch has two usage forms:
 
-- [`GQLClient`](#GQLClient): class
-- [`getFetch`](#getFetch): function
+- **[`GQLClient`](#GQLClient)**: class
+- **[`getFetch`](#getFetch)**: function
 
 ---
-#### GQLClient
+### GQLClient
 The GQLClient class takes two arguments when it is being created.
 - **url**: RequestInfo (required)
 - **options**: [`IClientOptions`](#IClientOptions) (optional)
@@ -56,24 +56,24 @@ Class Properties:
 Sample Usage
 ```ts
 const client = new GQLClient('http://localhost:5000/graphql');
-const request = client.fetch(`query ($id: Int!) {                                   
-                    user(id: $id) {
-                      id 
-                      name                                                                                                      
-                    }                      
-                  }`,{ id: 1 });
+const request = client.fetch(`query ($id: Int!) {
+                                user(id: $id) {
+                                  id
+                                  name
+                                }
+                              }`,{ id: 1 });
 request.then(...);                  
 ```
 
 In order to cancel a request created with GQLClient;
 ```ts
 const client = new GQLClient('http://localhost:5000/graphql');
-const request = client.fetch(`query ($id: Int!) {                                   
-                    user(id: $id) {
-                      id 
-                      name                                                                                                      
-                    }                      
-                  }`,{ id: 1 });
+const request = client.fetch(`query ($id: Int!) {
+                                user(id: $id) {
+                                  id
+                                  name
+                                }
+                              }`,{ id: 1 });
 request.abort();                  
 ```
 
@@ -87,7 +87,7 @@ request.then(...);
 ```
 
 ---
-#### getFetch
+### getFetch
 
 The getFetch function has two arguments.
 - **url**: RequestInfo (required)
