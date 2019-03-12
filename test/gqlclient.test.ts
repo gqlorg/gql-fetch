@@ -136,7 +136,7 @@ describe('GQLClient', () => {
         });
     });
 
-    it('Should upload file', () => {
+    it('Should upload file', (done) => {
         const client = new GQLClient('http://localhost:' + port + '/graphql');
         return client.fetch(`mutation ($userId: Int!, $file: File!) {
               uploadFile(userId: $userId, file: $file)           
@@ -150,6 +150,7 @@ describe('GQLClient', () => {
             assert.strictEqual(res.status, 200, res.statusText);
             assert(json.data);
             assert.strictEqual(json.data.uploadFile, 'This is the 1.st test file\n');
+            done();
         });
     });
 

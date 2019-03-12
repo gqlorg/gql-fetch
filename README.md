@@ -81,8 +81,8 @@ To upload file via GQLClient;
 ```ts
 const client = new GQLClient('http://localhost:5000/graphql');
 const request = client.fetch(`mutation ($file: File!) {
-                uploadFile(file: $file)           
-              }`, { file: fs.createReadStream(__dirname + '/file.txt')});
+                                uploadFile(file: $file)           
+                             }`, { file: fs.createReadStream(__dirname + '/file.txt')});
 request.then(...);
 ```
 
