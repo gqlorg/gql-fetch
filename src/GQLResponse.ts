@@ -1,6 +1,6 @@
 export default class GQLResponse {
 
-    public readonly json: object;
+    public readonly json: any;
     public readonly status: number;
     public readonly statusText: string;
     public readonly ok: boolean;

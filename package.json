@@ -1,11 +1,11 @@
 {
   "name": "gql-fetch",
-  "description": "",
-  "version": "0.1.6",
+  "description": "The GraphQL client powered by fetch. Supports multiform and upload files",
+  "version": "0.2.1",
   "author": "Panates",
   "contributors": [
-    "Eray Hanoglu <e.hanoglu@panates.com>  (http://www.npmjs.com/~erayhanoglu)",
-    "Arhun Hınçalan <ahincalan@hotmail.com> (http://www.npmjs.com/~ahincalan)"
+    "Eray Hanoglu <e.hanoglu@panates.com>",
+    "Arhun Hınçalan <ahincalan@hotmail.com>"
   ],
   "browser": "./lib/browser.js",
   "main": "./lib/index.js",
@@ -21,32 +21,30 @@
     "client"
   ],
   "dependencies": {
-    "abortcontroller-polyfill": "^1.2.3",
+    "abortcontroller-polyfill": "^1.2.5",
+    "form-data": "^2.3.3",
+    "http-errors": "^1.7.2",
     "node-fetch": "^2.3.0",
     "whatwg-fetch": ">=0.10.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.2.3",
-    "@babel/core": "^7.2.2",
-    "@babel/plugin-proposal-class-properties": "^7.3.0",
-    "@babel/plugin-proposal-object-rest-spread": "^7.3.2",
-    "@babel/plugin-transform-modules-commonjs": "^7.2.0",
-    "@babel/preset-env": "^7.3.1",
-    "@babel/preset-typescript": "^7.1.0",
     "@types/express": "^4.16.1",
     "@types/express-graphql": "^0.6.2",
+    "@types/form-data": "^2.2.1",
+    "@types/http-errors": "^1.6.1",
     "@types/graphql": "^14.0.5",
     "@types/mocha": "^5.2.5",
     "@types/node-fetch": "^2.1.6",
     "express": "^4.16.4",
     "express-graphql": "^0.7.1",
+    "gql-multipart": "0.0.8",
     "graphql": "^14.1.1",
-    "mocha": "^5.2.0",
-    "nyc": "^13.2.0",
+    "mocha": "^6.0.1",
+    "nyc": "^13.3.0",
     "rejected-or-not": "^1.0.1",
     "ts-node": "^8.0.2",
     "tslint": "^5.12.1",
-    "typescript": "^3.2.4"
+    "typescript": "^3.3.3333"
   },
   "peerDependencies": {},
   "engines": {
@@ -77,8 +75,6 @@
     "travis-cover": "nyc --reporter lcovonly -r lcov npm run test",
     "type-check": "tsc --noEmit",
     "type-check:watch": "npm run type-check -- --watch",
-    "build": "npm run build:types && npm run build:js",
-    "build:types": "tsc --emitDeclarationOnly",
-    "build:js": "babel src --out-dir lib --extensions \".ts,.tsx\" --source-maps inline"
+    "build": "tsc"
   }
 }
