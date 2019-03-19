@@ -1,5 +1,6 @@
-// Add `finally()` to `Promise.prototype`
+
 if (!Promise.prototype.finally) {
+
     Promise.prototype.finally = function(onFinally) {
         return this.then(
             /* onFulfilled */
