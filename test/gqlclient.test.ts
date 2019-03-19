@@ -187,6 +187,6 @@ describe('GQLClient', () => {
             assert.strictEqual(res.status, 200);
             done();
         });
-    });
+    }).timeout(5000);
 
 });
