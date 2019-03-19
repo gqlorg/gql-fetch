@@ -24,6 +24,7 @@ This library solves this problem by polyfilling for browsers that don't have fet
 * File upload support.
 * Requests can be aborted.
 * It is light and it has polyfill support.
+* Rxjs Observable support.
 
 ## Installation
 
@@ -52,6 +53,7 @@ Class Properties:
 - **url**: RequestInfo
 - **headers**: object
 - **fetch(query: string, variables?: IQueryVariables, options?: [`IFetchOptions`](#IFetchOptions))**: [`GQLRequest`](#GQLRequest)
+- **fetchObservable(query: string, variables?: IQueryVariables, options?: [`IFetchOptions`](#IFetchOptions))**: Observable[`<GQLResponse>`](#GQLResponse)
 
 Sample Usage
 ```ts
@@ -77,6 +79,17 @@ const request = client.fetch(`query ($id: Int!) {
 request.abort();                  
 ```
 
+fetchObservable Sample 
+```ts
+const client = new GQLClient('http://localhost:5000/graphql');
+const fo = client.fetchObservable(`query ($id: Int!) {
+                                user(id: $id) {
+                                  id
+                                  name
+                                }
+                              }`,{ id: 1 });                              
+fo.subscribe(...);    
+```
 To upload file via GQLClient;
 ```ts
 const client = new GQLClient('http://localhost:5000/graphql');

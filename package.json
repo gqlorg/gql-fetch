@@ -25,6 +25,7 @@
     "form-data": "^2.3.3",
     "http-errors": "^1.7.2",
     "node-fetch": "^2.3.0",
+    "rxjs": "^6.4.0",
     "whatwg-fetch": ">=0.10.0"
   },
   "devDependencies": {

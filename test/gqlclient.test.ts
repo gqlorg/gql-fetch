@@ -175,4 +175,18 @@ describe('GQLClient', () => {
         });
     });
 
+    it('Should use fetchObservable method', (done) => {
+        const client = new GQLClient('http://localhost:' + port + '/graphql');
+        client.fetchObservable(`{                                   
+                        user(id:1) {
+                            id 
+                            name
+                            email                                                                          
+                        }                      
+                    }`).subscribe(res => {
+            assert.strictEqual(res.status, 200);
+            done();
+        });
+    });
+
 });

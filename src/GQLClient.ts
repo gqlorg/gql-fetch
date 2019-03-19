@@ -7,6 +7,8 @@ import {
     IClientOptions,
     IQueryVariables
 } from './types';
+import {Observable, Observer} from "rxjs";
+import GQLResponse from "../lib/GQLResponse";
 
 export default class GQLClient {
 
@@ -32,6 +34,18 @@ export default class GQLClient {
 
     get url(): RequestInfo {
         return this._url;
+    }
+
+    public fetchObservable(query: string,
+                           variables?: Maybe<IQueryVariables>,
+                           options: IFetchOptions = {}): Observable<GQLResponse> {
+        return new Observable((observer: Observer<GQLResponse>) => {
+            this.fetch(query, variables, options).then((res: any) => {
+                observer.next(res);
+            }).catch(/* istanbul ignore next */err => observer.error(err)
+            ).finally(() => observer.complete());
+
+        });
     }
 
     public fetch(
