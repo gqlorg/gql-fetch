@@ -8,7 +8,7 @@ import {
     IQueryVariables
 } from './types';
 import {Observable, Observer} from "rxjs";
-import GQLResponse from "../lib/GQLResponse";
+import GQLResponse from "./GQLResponse";
 
 export default class GQLClient {
 
