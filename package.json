@@ -71,7 +71,7 @@
     ]
   },
   "scripts": {
-    "test": "mocha -r ./test/support/env -r ts-node/register --reporter spec --bail --check-leaks ./test/*.ts --timeout 10000",
+    "test": "mocha -r ./test/support/env -r ts-node/register --reporter spec --bail --check-leaks ./test/*.ts --timeout 20000",
     "cover": "nyc --reporter html --reporter text -r lcov npm run test",
     "travis-cover": "nyc --reporter lcovonly -r lcov npm run test",
     "type-check": "tsc --noEmit",
