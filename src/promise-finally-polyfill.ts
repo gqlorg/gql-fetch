@@ -6,6 +6,7 @@ if (!Promise.prototype.finally) {
             /* onFulfilled */
             res => Promise.resolve(onFinally()).then(() => res),
             /* onRejected */
+            /* istanbul ignore next */
             err => Promise.resolve(onFinally()).then(() => {
                 throw err;
             })
