@@ -1,7 +1,7 @@
 {
   "name": "gql-fetch",
   "description": "The GraphQL client powered by fetch. Supports multiform and upload files",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "author": "Panates",
   "contributors": [
     "Eray Hanoglu <e.hanoglu@panates.com>",
