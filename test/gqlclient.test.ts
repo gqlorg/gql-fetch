@@ -84,7 +84,7 @@ describe('GQLClient', () => {
         return assert.rejects(() =>
                 client.fetch(`query ($interval: Int!){                                   
                         timeoutServer(interval: $interval)                    
-                    }`, {interval: 250}, {timeout: 50}),
+                    }`, {interval: 750}, {timeout: 500}),
             /timeout/);
     });
 
