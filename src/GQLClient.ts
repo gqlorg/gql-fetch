@@ -152,8 +152,9 @@ function isBlobLike(x: any) {
 
 /* istanbul ignore next */
 function isBlob(x: any) {
+    const root = (typeof self === 'object' && self.window) || global;
     // @ts-ignore
-    return (global.Blob && x instanceof global.Blob) ||
+    return (root.Blob && x instanceof root.Blob) ||
         (Object.prototype.toString.call(x) === '[object Blob]' &&
             typeof x.slice === 'function');
 }
