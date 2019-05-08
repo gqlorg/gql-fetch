@@ -84,7 +84,7 @@ describe('GQLClient', () => {
         return assert.rejects(() =>
                 client.fetch(`query ($interval: Int!){                                   
                         timeoutServer(interval: $interval)                    
-                    }`, {interval: 250}, {timeout: 50}),
+                    }`, {interval: 750}, {timeout: 500}),
             /timeout/);
     });
 
@@ -172,6 +172,20 @@ describe('GQLClient', () => {
             assert.deepStrictEqual(json.data.uploadFiles,
                 ['This is the 1.st test file\n', 'This is the 2.th test file\n']
             );
+        });
+    });
+
+    it('Should use fetchObservable method', (done) => {
+        const client = new GQLClient('http://localhost:' + port + '/graphql');
+        client.fetchObservable(`{                                   
+                        user(id:1) {
+                            id 
+                            name
+                            email                                                                          
+                        }                      
+                    }`).subscribe(res => {
+            assert.strictEqual(res.status, 200);
+            done();
         });
     });
 
